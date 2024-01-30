@@ -80,7 +80,7 @@ public class App {
                 case 0: // 退出
                     System.out.println("再见！");
                     try {
-                        Thread.sleep(1000); // 暂停1秒钟
+                        Thread.sleep(2000); // 暂停2秒钟
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
