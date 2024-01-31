@@ -13,6 +13,7 @@ public class App {
 
 
     public static void default_menu() {
+        System.out.println("");
         System.out.println("欢迎来到图书管理系统！");
         System.out.println("1. 登录");
         System.out.println("2. 注册");
@@ -96,11 +97,14 @@ public class App {
     }
 
     public static void user_menu() {
+        System.out.println("");
         System.out.println("欢迎，" + users.get(userIndex - 1).getName() + "！");
         System.out.println("1. 注销");
         System.out.println("2. 借书");
         System.out.println("3. 还书");
-        System.out.println("0. 退出");
+        System.out.println("4. 退出登录");
+        System.out.println("0. 退出系统");
+        System.out.printf("请输入您的选择：");
 
         try (Scanner sc = new Scanner(System.in)) {
             int choice;
@@ -172,10 +176,12 @@ public class App {
     }
 
     public static void admin_menu() {
+        System.out.println("");
         System.out.println("欢迎！管理员");
         System.out.println("1. 退出管理员模式");
         System.out.println("2. 查看当前所有用户");
         System.out.println("3. 查看当前所有图书");
+        System.out.printf("请输入你的选择：");
     }
 
     public static void main(String[] args) {
