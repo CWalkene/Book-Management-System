@@ -11,7 +11,6 @@ public class App {
     private static int userIndex = 0;
     private static int loggedIndex = 0;
 
-
     public static void default_menu() {
         System.out.println("");
         System.out.println("欢迎来到图书管理系统！");
@@ -35,24 +34,22 @@ public class App {
                 case 1: // 登录
                     System.out.println("请输入用户名：");
                     String name = sc.next();
-                    for(int i = 0; i < userIndex; i++) {
-                        if(users.get(i).getName().equals(name)) {
+                    for (int i = 0; i < userIndex; i++) {
+                        if (users.get(i).getName().equals(name)) {
                             System.out.println("登录成功！");
                             loggedIndex = i;
                             pause(1000);
                             user_menu();
                             return;
-                        }
-                        else if (name.equals("Admin")) {
+                        } else if (name.equals("Admin")) {
                             System.out.printf("检测到管理员登录，请输入密码：");
                             String password = sc.next();
-                            if(password.equals("admin")) {
+                            if (password.equals("admin")) {
                                 System.out.println("登录成功！");
                                 pause(1000);
                                 admin_menu();
                                 return;
-                            }
-                            else {
+                            } else {
                                 System.out.println("密码错误！请重新输入！");
                                 pause(1000);
                                 default_menu();
@@ -64,11 +61,11 @@ public class App {
                     pause(1000);
                     default_menu();
                     break;
-                case 2: // 注册  
+                case 2: // 注册
                     System.out.printf("请输入用户名：");
                     String newName = sc.next();
-                    for(int i = 0; i < userIndex; i++) {
-                        if(users.get(i).getName().equals(newName)) {
+                    for (int i = 0; i < userIndex; i++) {
+                        if (users.get(i).getName().equals(newName)) {
                             System.out.println("用户已存在！请重新输入！");
                             pause(1000);
                             default_menu();
@@ -128,16 +125,15 @@ public class App {
                 case 2: // 借书
                     System.out.printf("请输入要借的书名：");
                     String title = sc.next();
-                    for(int i = 0; i < books.size(); i++) {
-                        if(books.get(i).getTitle().equals(title)) {
-                            if(books.get(i).isAvailable()) {
+                    for (int i = 0; i < books.size(); i++) {
+                        if (books.get(i).getTitle().equals(title)) {
+                            if (books.get(i).isAvailable()) {
                                 books.get(i).toBorrow(loggedIndex);
                                 System.out.println("借书成功！");
                                 pause(1000);
                                 user_menu();
                                 return;
-                            }
-                            else {
+                            } else {
                                 System.out.println("该书已被借出！");
                                 pause(1000);
                                 user_menu();
@@ -150,16 +146,15 @@ public class App {
                 case 3: // 还书
                     System.out.printf("请输入要还的书名：");
                     String returnTitle = sc.next();
-                    for(int i = 0; i < books.size(); i++) {
-                        if(books.get(i).getTitle().equals(returnTitle)) {
-                            if(books.get(i).getBorrowedBy() == loggedIndex) {
+                    for (int i = 0; i < books.size(); i++) {
+                        if (books.get(i).getTitle().equals(returnTitle)) {
+                            if (books.get(i).getBorrowedBy() == loggedIndex) {
                                 books.get(i).toReturn();
                                 System.out.println("还书成功！");
                                 pause(1000);
                                 user_menu();
                                 return;
-                            }
-                            else {
+                            } else {
                                 System.out.println("您没有借过此书！");
                                 pause(1000);
                                 user_menu();
@@ -170,7 +165,7 @@ public class App {
                     System.out.println("暂无此书！");
                     pause(1000);
                     user_menu();
-                    break; 
+                    break;
             }
         }
     }
@@ -187,7 +182,7 @@ public class App {
     public static void main(String[] args) {
         default_menu();
     }
-    
+
     private static void pause(int milliseconds) {
         try {
             Thread.sleep(milliseconds);
