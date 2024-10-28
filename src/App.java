@@ -1,37 +1,39 @@
 package src;
 
-import java.util.Scanner;
-import java.util.InputMismatchException;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
+import java.util.Scanner;
 
 public class App {
-    private static ArrayList<User> users = new ArrayList<>();
-    private static ArrayList<Book> books = new ArrayList<>();
+    private static final ArrayList<User> users = new ArrayList<>();
+    private static final ArrayList<Book> books = new ArrayList<>();
 
     private static int userIndex = 0;
     private static int loggedIndex = 0;
 
     public static void default_menu() {
-        System.out.println("");
-        System.out.println("欢迎来到图书管理系统！");
-        System.out.println("1. 登录");
-        System.out.println("2. 注册");
-        System.out.println("0. 退出");
-        System.out.printf("请输入您的选择：");
+        Scanner sc = new Scanner(System.in);
+        while (true) {
+            System.out.println("");
+            System.out.println("欢迎来到图书管理系统！");
+            System.out.println("1. 登录");
+            System.out.println("2. 注册");
+            System.out.println("0. 退出");
+            System.out.printf("请输入您的选择：");
 
-        try (Scanner sc = new Scanner(System.in)) {
             int choice;
             try {
                 choice = sc.nextInt();
             } catch (InputMismatchException e) {
                 System.out.println("输入错误，请重新输入！");
+                sc.next(); // clear the invalid input
                 pause(1000);
-                default_menu();
-                return;
+                continue;
             }
 
             switch (choice) {
-                case 1: // 登录
+                case 1 -> {
+                    // 登录
                     System.out.println("请输入用户名：");
                     String name = sc.next();
                     for (int i = 0; i < userIndex; i++) {
@@ -52,43 +54,44 @@ public class App {
                             } else {
                                 System.out.println("密码错误！请重新输入！");
                                 pause(1000);
-                                default_menu();
-                                return;
+                                break;
                             }
                         }
                     }
                     System.out.println("用户不存在！");
                     pause(1000);
-                    default_menu();
-                    break;
-                case 2: // 注册
+                }
+                case 2 -> {
+                    // 注册
                     System.out.printf("请输入用户名：");
                     String newName = sc.next();
+                    boolean userExists = false;
                     for (int i = 0; i < userIndex; i++) {
                         if (users.get(i).getName().equals(newName)) {
                             System.out.println("用户已存在！请重新输入！");
                             pause(1000);
-                            default_menu();
-                            return;
+                            userExists = true;
+                            break;
                         }
                     }
-                    User newUser = new User(newName);
-                    users.add(newUser);
-                    userIndex++;
-                    System.out.println("注册成功！");
-                    pause(1000);
-                    default_menu();
-                    break;
-                case 0: // 退出
+                    if (!userExists) {
+                        User newUser = new User(newName);
+                        users.add(newUser);
+                        userIndex++;
+                        System.out.println("注册成功！");
+                        pause(1000);
+                    }
+                }
+                case 0 -> {
+                    // 退出
                     System.out.println("再见！");
                     pause(1000);
                     System.exit(0);
-                    break;
-                default:
+                }
+                default -> {
                     System.out.println("输入错误，请重新输入！");
                     pause(1000);
-                    default_menu();
-                    break;
+                }
             }
         }
     }
@@ -115,14 +118,16 @@ public class App {
             }
 
             switch (choice) {
-                case 1: // 注销
+                case 1 -> {
+                    // 注销
                     users.remove(loggedIndex);
                     userIndex--;
                     System.out.println("注销成功！");
                     pause(1000);
                     default_menu();
-                    break;
-                case 2: // 借书
+                }
+                case 2 -> {
+                    // 借书
                     System.out.printf("请输入要借的书名：");
                     String title = sc.next();
                     for (int i = 0; i < books.size(); i++) {
@@ -142,8 +147,9 @@ public class App {
                         }
                     }
                     System.out.println("暂无此书！");
-                    break;
-                case 3: // 还书
+                }
+                case 3 -> {
+                    // 还书
                     System.out.printf("请输入要还的书名：");
                     String returnTitle = sc.next();
                     for (int i = 0; i < books.size(); i++) {
@@ -165,7 +171,7 @@ public class App {
                     System.out.println("暂无此书！");
                     pause(1000);
                     user_menu();
-                    break;
+                }
             }
         }
     }
@@ -187,7 +193,11 @@ public class App {
         try {
             Thread.sleep(milliseconds);
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            System.out.println("错误");
         }
+    }
+
+    public static ArrayList<Book> getBooks() {
+        return books;
     }
 }

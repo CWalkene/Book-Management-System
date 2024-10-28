@@ -1,8 +1,8 @@
 package src;
 public class Book {
-    private String title;
-    private String author;
-    private String publisher;
+    private final String title;
+    private final String author;
+    private final String publisher;
     private boolean isAvailable;
 
     private int borrowedBy = -1;
