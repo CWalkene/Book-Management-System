@@ -2,7 +2,6 @@
 *.class
 
 # IntelliJ project files
-.idea/
 ./out/
 
 # Log file
